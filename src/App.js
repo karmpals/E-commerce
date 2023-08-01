@@ -102,8 +102,8 @@ function App() {
   const userChecked = useSelector(selectUserChecked)
 
   useEffect(() => {
-    dispatch(checkAuthAsync())
-  }, [dispatch])
+    dispatch(checkAuthAsync());
+  }, [dispatch]);
 
   useEffect(() => {
     if (user) {
@@ -114,7 +114,7 @@ function App() {
 
   return (
     <div className="App">
-       {userChecked &&  <RouterProvider router={router} />}
+      {userChecked && (<RouterProvider router={router} />)}
     </div>
   );
 }
