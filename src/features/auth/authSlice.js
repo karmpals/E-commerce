@@ -31,12 +31,11 @@ export const loginUserAsync = createAsyncThunk(
 
 export const checkAuthAsync = createAsyncThunk(
   'user/checkAuth',
-  async ({},{rejectWithValue}) => {
+  async () => {
     try {
       const response = await checkAuth();
       return response.data;
     } catch (error) {
-     return rejectWithValue(error)
     }
   }
 );
@@ -77,6 +76,13 @@ export const authSlice = createSlice({
       .addCase(signOutAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.loggedInUserToken = null;
+      })
+      .addCase(checkAuthAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(checkAuthAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.loggedInUserToken = action.payload;
       })
   },
 });
