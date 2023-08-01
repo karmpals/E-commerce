@@ -20,7 +20,7 @@ export function checkAuth(){
         resolve({ data })
       }
       else{
-        const error = await response.json();
+        const error = await response.text();
         reject( error )
       }
     } catch (error) {
@@ -39,7 +39,7 @@ export function loginUser(loginInfo) {
         headers: { 'content-type': 'application/json' }
       });
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.text();
         resolve({ data })
       }
       else{

@@ -19,13 +19,13 @@ export default function UserProfile() {
   } = useForm();
 
   const handleEdit = (addressUpdate, index) => {
-    const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
+    const newUser = { ...userInfo, addresses: [...userInfo.addresses] };
     newUser.addresses.splice(index, 1, addressUpdate);
     dispatch(updateUserAsync(newUser));
     setSelectedEditIndex(-1);
   };
   const handleRemove = (e, index) => {
-    const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
+    const newUser = { ...userInfo, addresses: [...userInfo.addresses] };
     newUser.addresses.splice(index, 1);
     dispatch(updateUserAsync(newUser));
   };

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
-import { deleteItemFromCartAsync, selectItems, updateCartAsync } from './CartSlice';
-import { selectLoggedInUser } from '../auth/authSlice';
+import { deleteItemFromCartAsync, selectCartLoaded, selectItems, updateCartAsync } from './CartSlice';
 import { discountedPrice } from '../../app/constant';
 
 export default function Cart() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const items = useSelector(selectItems);
+  const cartLoaded = useSelector(selectCartLoaded);
   const totalAmount = items.reduce((amount, item) => discountedPrice(item.product) * item.quantity + amount, 0);
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
@@ -22,7 +22,7 @@ export default function Cart() {
 
   return (
     <>
-      {!items.length && <Navigate to='/' replace={true}/> }
+      {!items.length && cartLoaded && <Navigate to='/' replace={true}/> }
       <div className='bg-white mx-auto mt-12 max-w-7xl px-4 sm:px-6 lg:px-8'>
 
         <div className="border-t bg-white border-gray-200 px-4 py-6 sm:px-6">
