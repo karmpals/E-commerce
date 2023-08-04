@@ -24,7 +24,7 @@ export default function Checkout() {
   const totalItems = items.reduce((total, item) => item.quantity + total, 0)
 
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({id:item.id, quantity: +e.target.value }))
+    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }))
   }
 
   const handleRemove = (e, id) => {
@@ -43,7 +43,7 @@ export default function Checkout() {
       const order = {
         items,
         totalAmount,
-        user:user.id,
+        user: user.id,
         paymentMethod,
         selectAddress,
         status: 'pending',
@@ -58,7 +58,8 @@ export default function Checkout() {
   return (
     <>
       {!items.length && <Navigate to='/' replace={true} />}
-      {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true} />}
+      {currentOrder && currentOrder.paymentMethod === 'cash' && <Navigate to={`/order-success/${currentOrder.id}`} replace={true} />}
+      {currentOrder && currentOrder.paymentMethod === 'card' && <Navigate to={`/stripe-checkout/`} replace={true} />}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
